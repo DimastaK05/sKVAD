@@ -27,14 +27,4 @@ expanded_expr = expr.expand
 puts "Исходное выражение: #{expr}"
 puts "Производная: #{derivative}"
 puts "Раскрытое выражение: #{expanded_expr}"
-
-# Пример работы с более сложным выражением
-expr = Symdiff.parse("(x + 2)^3 + 5*x")
-derivative = expr.diff(:x)
-expanded_expr = expr.expand
-
-# Вывод результатов для сложного выражения
-puts "Сложное выражение: #{complex_expr}"
-puts "Производная сложного выражения: #{complex_derivative}"
-puts "Раскрытое сложное выражение: #{complex_expanded}"
 ```
