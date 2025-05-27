@@ -19,9 +19,27 @@ module SymbolDiff
     end
     
     def expand
-      left_exp = left.expand
-      right_exp = right.expand
-      # Реализация раскрытия скобок
+    left_exp = left.expand  
+    right_exp = right.expand  
+
+  
+    if left_exp.is_a?(Add)
+      Add.new(
+        Multiply.new(left_exp.left, right_exp).expand,
+        Multiply.new(left_exp.right, right_exp).expand
+      )
+
+ 
+    elsif right_exp.is_a?(Add)
+      Add.new(
+        Multiply.new(left_exp, right_exp.left).expand,
+        Multiply.new(left_exp, right_exp.right).expand
+      )
+
+  
+    else
+      Multiply.new(left_exp, right_exp)
+      end
     end
   end
 end

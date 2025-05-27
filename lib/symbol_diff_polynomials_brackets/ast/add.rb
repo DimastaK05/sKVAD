@@ -15,7 +15,7 @@ module SymbolDiff
       Add.new(left.diff(var), right.diff(var))
     end
     
-    def expand
+  def expand
       Add.new(left.expand, right.expand)
     end
   end
