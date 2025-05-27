@@ -1,19 +1,22 @@
-module SymbolDiffPolynomialsBrackets::AST
+module SymbolDiff
   class Add
     attr_reader :left, :right
-
-    def initialize(left, right, positive = true)
+    
+    def initialize(left, right)
       @left = left
       @right = right
-      @positive = positive
     end
-
-    def diff(var)
-      Add.new(left.diff(var), right.diff(var), @positive)
-    end
-
+    
     def to_s
-      "#{left} #{@positive ? '+' : '-'} #{right}"
+      "(#{left} + #{right})"
+    end
+    
+    def diff(var)
+      Add.new(left.diff(var), right.diff(var))
+    end
+    
+    def expand
+      Add.new(left.expand, right.expand)
     end
   end
 end

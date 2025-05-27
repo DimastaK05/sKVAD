@@ -1,32 +1,27 @@
-module SymbolDiffPolynomialsBrackets::AST
+module SymbolDiff
   class Multiply
     attr_reader :left, :right
-
-    def initialize(left, right, multiply = true)
+    
+    def initialize(left, right)
       @left = left
       @right = right
-      @multiply = multiply
     end
-
-    def diff(var)
-      if @multiply
-        Add.new(
-          Multiply.new(left.diff(var), right),
-          Multiply.new(left, right.diff(var))
-        )
-      else
-        Divide.new(
-          Subtract.new(
-            Multiply.new(left.diff(var), right),
-            Multiply.new(left, right.diff(var))
-          ),
-          Power.new(right, Number.new(2))
-        )
-      end
-    end
-
+    
     def to_s
-      "#{left} #{@multiply ? '*' : '/'} #{right}"
+      "(#{left} * #{right})"
+    end
+    
+    def diff(var)
+      Add.new(
+        Multiply.new(left.diff(var), right),
+        Multiply.new(left, right.diff(var))
+      )
+    end
+    
+    def expand
+      left_exp = left.expand
+      right_exp = right.expand
+      # Реализация раскрытия скобок
     end
   end
 end
